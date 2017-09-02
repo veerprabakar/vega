@@ -6,34 +6,38 @@ using System.Threading.Tasks;
 using vega.Controllers.Resources;
 using vega.Models;
 using vega.Persistence;
+using vega.Models.Vehicle;
 
 namespace vega.Controllers
 {
+    [Route("/api/vehicle")]
     public class VehicleController : Controller
     {
         private readonly VegaDbContext context;
         private IMapper mapper;
-
+        
         public VehicleController(VegaDbContext context, IMapper mapper)
         {
             this.context = context;
             this.mapper = mapper;
         }
 
-        [HttpGet("/api/vehicle/makes")]
-        public async Task<IEnumerable<MakeResource>> GetMakes()
+        [HttpPost]
+        public async Task<IActionResult> CreateVehicle([FromBody]VehicleResource vehicleResource)
         {
-            var makes = await context.Makes.Include(m => m.Models)
-                                .ToListAsync();
-            return mapper.Map<List<Make>, List<MakeResource>>(makes);
-        }
+            if( !ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        [HttpGet("/api/vehicle/features")]
-        public async Task<IEnumerable<MakeResource>> GetFeatures()
-        {
-            var makes = await context.Makes.Include(m => m.Models)
-                                .ToListAsync();
-            return mapper.Map<List<Make>, List<MakeResource>>(makes);
+            // if(true)
+            // {
+            //     ModelState.AddModelError("...", "error");
+            //     return BadRequest(ModelState);
+            // }
+
+            var vehicle = mapper.Map<VehicleResource, Vehicle>(vehicleResource);
+            context.Vehicles.Add(vehicle);
+            await context.SaveChangesAsync();           
+            return Ok(mapper.Map<Vehicle, VehicleResource>(vehicle));
         }
     }
 }
