@@ -32,13 +32,18 @@ export class VehicleFormComponent implements OnInit {
     delete this.vehicle.modelId;
   }
 
-  onFeatureToggle(featureId: any, $event: any) {
+  onFeatureToggle(featureName: any, $event: any) {
     if($event.target.checked)
-      this.vehicle.features.push(featureId);
+      this.vehicle.features.push(featureName);
     else{
-      this.index = this.vehicle.features.indexOf(featureId);
+      this.index = this.vehicle.features.indexOf(featureName);
       this.vehicle.features.splice(this.index, 1);
     }
-
   }
+
+  submit() {
+      this.vehicleService.create(this.vehicle)
+          .subscribe(x => console.log(x));
+    }
 }
+

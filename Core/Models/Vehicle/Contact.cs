@@ -9,13 +9,13 @@ namespace vega.Models.Vehicle
 
         [Required]
         [StringLength(255)]
-        public int Name { get; set; }
+        public string Name { get; set; }
 
         [StringLength(15)]
-        public int Phone { get; set; }
+        public string Phone { get; set; }
 
         [StringLength(50)]
-        public int Email { get; set; }
+        public string Email { get; set; }
         public DateTime LastUpdate { get; set; }
     }
 }

@@ -9,16 +9,17 @@ namespace vega.Controllers.Resources
     {
         public VehicleResource()
         {
-            Features = new Collection<FeatureResources>();
+            Features = new Collection<string>();
+            Contact = new ContactResource();
         }
         public int Id { get; set; }
         public int ModelId { get; set; }
-        public ModelResource Model { get; set; }
-
+        public int MakeId { get; set; }
+               
         public bool IsRegistered { get; set; }
 
         public ContactResource Contact { get; set; }
 
-        public ICollection<FeatureResources> Features { get; set; }
+        public ICollection<string> Features { get; set; }
     }
 }
