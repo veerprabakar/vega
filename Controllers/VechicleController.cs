@@ -6,6 +6,7 @@ using vega.Controllers.Resources;
 using vega.Models;
 using vega.Core;
 using vega.Models.Vehicle;
+using System;
 
 namespace vega.Controllers
 {
@@ -25,7 +26,8 @@ namespace vega.Controllers
         public async Task<IActionResult> CreateVehicle
         ([FromBody]VehicleResource vehicleResource)
         {
-            if( !ModelState.IsValid)
+            throw new Exception();
+            if( !ModelState.IsValid )
                 return BadRequest(null);
                 
             var vehicle = mapper.Map<VehicleResource, Vehicle>(vehicleResource);

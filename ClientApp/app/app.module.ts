@@ -1,9 +1,12 @@
+import { AppErrorHandler } from './app.error.handler';
+import { ErrorHandler } from '@angular/core';
 //core
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { ToastyModule } from 'ng2-toasty';
 
 //componenets
 import { AppComponent } from './components/app/app.component';
@@ -36,10 +39,12 @@ import { VehicleService } from './services/vehicle.service';
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: '**', redirectTo: 'home' }
-        ])
+        ]),
+        ToastyModule.forRoot(),
     ],
     providers: [
-        VehicleService
+        VehicleService,
+        { provide: ErrorHandler, useClass: AppErrorHandler }
     ]
 })
 export class AppModuleShared {

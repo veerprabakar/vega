@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VehicleService } from './../../services/vehicle.service';
+import { ToastyService } from "ng2-toasty";
 
 @Component({
   selector: 'app-vehicle-form',
@@ -16,7 +17,10 @@ export class VehicleFormComponent implements OnInit {
   };
   index: any;
 
-  constructor(private vehicleService: VehicleService) { }
+  constructor(
+    private vehicleService: VehicleService,
+    private toastyService: ToastyService
+  ) { }
 
   ngOnInit() {
     this.vehicleService.getMakes().subscribe(makes =>
@@ -43,7 +47,18 @@ export class VehicleFormComponent implements OnInit {
 
   submit() {
       this.vehicleService.create(this.vehicle)
-          .subscribe(x => console.log(x));
+          .subscribe(
+            x => console.log(x),
+            err => {
+              this.toastyService.error({
+                title: 'Error',
+                msg: 'An unexpected error happened.',
+                theme: 'bootstrap',
+                showClose: true,
+                timeout: 5000
+              });
+            }
+          );
     }
 }
 
