@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
+using System.Collections.Generic;
 
 namespace vega.Migrations
 {
-    public partial class seed_data : Migration
+    public partial class initialmigration_2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,8 +27,7 @@ namespace vega.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            //migrationBuilder.Sql("DELETE FROM Makes");
-            //migrationBuilder.Sql("DELETE FROM Models");
+
         }
     }
 }
