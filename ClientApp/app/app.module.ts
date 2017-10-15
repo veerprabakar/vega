@@ -1,3 +1,4 @@
+import * as Raven from 'raven-js';
 import { AppErrorHandler } from './app.error.handler';
 import { ErrorHandler } from '@angular/core';
 //core
@@ -18,6 +19,8 @@ import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.com
 
 //services
 import { VehicleService } from './services/vehicle.service';
+
+Raven.config('https://627eb835e9d541098a3f5d04a9f3693b@sentry.io/230334').install();
 
 @NgModule({
     declarations: [
