@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { VehicleService } from './../../services/vehicle.service';
 import { ToastyService } from "ng2-toasty";
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/Observable/forkJoin';
 
 @Component({
   selector: 'app-vehicle-form',
@@ -11,6 +13,7 @@ export class VehicleFormComponent implements OnInit {
   makes: any[];
   models: any[];
   features: any[];
+  
   vehicle: any = {
     features: [],
     contact:{}
@@ -23,11 +26,25 @@ export class VehicleFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.vehicleService.getMakes().subscribe(makes =>
-      this.makes = makes);
 
-     this.vehicleService.getFeatures().subscribe(features =>
-       this.features = features);
+    //RxJs Observable for calling the services
+    Observable.forkJoin([
+        this.vehicleService.getMakes(),
+        this.vehicleService.getFeatures()
+    ]).subscribe(data => { 
+        this.makes = data[0];
+        this.features = data[1];
+    }, err => {
+      if(err.status == 404)
+        console.log(err);
+        //this.router.navigate(['/home']); //not working for some reson
+    });
+
+    // this.vehicleService.getMakes().subscribe(makes =>
+    //   this.makes = makes);
+
+    //  this.vehicleService.getFeatures().subscribe(features =>
+    //    this.features = features);
   }
 
   onMakeChange() {
@@ -52,7 +69,7 @@ export class VehicleFormComponent implements OnInit {
             err => {
               this.toastyService.error({
                 title: 'Error',
-                msg: 'An unexpected error happened.',
+                msg: 'Dont worry!.. This is a test error message from tosty !.',
                 theme: 'bootstrap',
                 showClose: true,
                 timeout: 5000

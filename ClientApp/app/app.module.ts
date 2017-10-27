@@ -19,6 +19,8 @@ import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.com
 
 //services
 import { VehicleService } from './services/vehicle.service';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { FileDropDirective, FileSelectDirective } from 'ng2-file-upload';
 
 Raven.config('https://627eb835e9d541098a3f5d04a9f3693b@sentry.io/230334').install();
 
@@ -29,7 +31,10 @@ Raven.config('https://627eb835e9d541098a3f5d04a9f3693b@sentry.io/230334').instal
         CounterComponent,
         FetchDataComponent,
         HomeComponent,
-        VehicleFormComponent
+        VehicleFormComponent,
+        FileUploadComponent,    
+        FileDropDirective,
+        FileSelectDirective
     ],
     imports: [
         CommonModule,
@@ -41,6 +46,7 @@ Raven.config('https://627eb835e9d541098a3f5d04a9f3693b@sentry.io/230334').instal
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
+            { path: 'file-upload', component: FileUploadComponent },
             { path: '**', redirectTo: 'home' }
         ]),
         ToastyModule.forRoot(),
